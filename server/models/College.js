@@ -8,4 +8,4 @@ const CollegeSchema = new mongoose.Schema({
 })
 
 const CollegeModel = mongoose.model("college", CollegeSchema)
-module.exports = CollegeModel
+module.exports = CollegeModel;
