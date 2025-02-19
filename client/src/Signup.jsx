@@ -11,13 +11,23 @@ function Signup() {
     const navigate = useNavigate()
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        axios.post('http://localhost:3001/register', {name, email, password, role})
-        .then(result => {console.log(result)
-            navigate('/login')
-        })
-        .catch(err=> console.log(err))
-    }
+        e.preventDefault();
+        
+        axios.post('http://localhost:3001/register', { name, email, password, role })
+            .then(result => {
+                console.log(result);
+                if (result.data.success) {
+                    navigate('/login');  // Navigate only if registration is successful
+                } else {
+                    alert(result.data.message);  // Show alert if email is not unique
+                }
+            })
+            .catch(err => {
+                console.error("Error:", err);
+                alert("An error occurred. Please try again.");
+            });
+    };
+    
     
     return (
         <div className="d-flex justify-content-center align-items-center bg secondary vh-100">

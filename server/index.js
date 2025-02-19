@@ -29,11 +29,25 @@ app.post('/login', (req, res) => {
 });
 
 
-app.post('/register', (req, res) => {
-    CollegeModel.create(req.body)
-    .then(college => res.json(college))
-    .catch(err => res.json)
-})
+app.post('/register', async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        // Check if email already exists
+        const existingCollege = await CollegeModel.findOne({ email });
+        if (existingCollege) {
+            return res.json({ success: false, message: "Email already exists" });
+        }
+
+        // If email is unique, create a new college entry
+        const college = await CollegeModel.create(req.body);
+        res.json({ success: true, college });
+
+    } catch (err) {
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+});
+
 
 app.listen(3001, () => {
     console.log("Server is running")
