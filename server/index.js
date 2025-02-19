@@ -48,6 +48,15 @@ app.post('/register', async (req, res) => {
     }
 });
 
+app.get('/students', async (req, res) => {
+    try {
+        const students = await StudentsModel.find().populate('collegeId'); // Populate college details if needed
+        res.json({ success: true, students });
+    } catch (err) {
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+});
+
 
 app.listen(3001, () => {
     console.log("Server is running")
