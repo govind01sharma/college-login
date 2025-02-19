@@ -7,11 +7,12 @@ function Signup() {
     const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const [role, setRole] = useState("Student"); // Default role
     const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post('http://localhost:3001/register', {name, email, password})
+        axios.post('http://localhost:3001/register', {name, email, password, role})
         .then(result => {console.log(result)
             navigate('/login')
         })
@@ -40,6 +41,15 @@ function Signup() {
                             <strong>Password</strong>
                         </label>
                         <input type="password" placeholder="Enter Password" name="password" className="form-control rounded-0" onChange={(e) => setPassword(e.target.value)}/>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="role">
+                            <strong>Role</strong>
+                        </label>
+                        <select name="role" className="form-control rounded-0" onChange={(e) => setRole(e.target.value)} value={role}>
+                            <option value="Student">Student</option>
+                            <option value="Staff">Staff</option>
+                        </select>
                     </div>
                     <button type="submit" className="btn btn-success w-100 rounded-0">
                         Register
