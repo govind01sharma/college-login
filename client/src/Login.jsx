@@ -10,16 +10,23 @@ function Login() {
     const navigate = useNavigate()
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        axios.post('http://localhost:3001/login', {email, password})
-        .then(result => {
-            console.log(result)
-            if(result.data === "Success") {
-                navigate('/home')
-            }            
-        })
-        .catch(err=> console.log(err))
-    }
+        e.preventDefault();
+        axios.post('http://localhost:3001/login', { email, password })
+            .then(result => {
+                console.log(result);
+                if (result.data.success) {
+                    if (result.data.role === "Student") {
+                        navigate('/updateStudent');  // Navigate to student page
+                    } else if (result.data.role === "Staff") {
+                        navigate('/staff');  // Navigate to staff page
+                    }
+                } else {
+                    alert(result.data.message); // Show error message if login fails
+                }
+            })
+            .catch(err => console.log(err));
+    };
+    
     
     return (
         <div className="d-flex justify-content-center align-items-center bg secondary vh-100">

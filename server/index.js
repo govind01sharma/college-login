@@ -12,20 +12,22 @@ app.use(cors())
 mongoose.connect("mongodb://127.0.0.1:27017/college");
 
 app.post('/login', (req, res) => {
-    const {email, password} = req.body;
-    CollegeModel.findOne({email: email})
-    .then(user => {
-        if(user) {
-            if(user.password === password) {
-                res.json("Success")
+    const { email, password } = req.body;
+    CollegeModel.findOne({ email: email })
+        .then(user => {
+            if (user) {
+                if (user.password === password) {
+                    res.json({ success: true, role: user.role });  // Send role in response
+                } else {
+                    res.json({ success: false, message: "The password is incorrect" });
+                }
             } else {
-                res.json("The password is incorrect")
+                res.json({ success: false, message: "No record existed" });
             }
-        } else {
-            res.json("No record existed")
-        }
-    })
-})
+        })
+        .catch(err => res.status(500).json({ success: false, message: "Server error" }));
+});
+
 
 app.post('/register', (req, res) => {
     CollegeModel.create(req.body)
