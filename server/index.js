@@ -1,12 +1,12 @@
-const express = require("express")
-const mongoose = require("mongoose")
-const cors = require("cors")
-const CollegeModel = require("./models/College")
-const StudentsModel = require("./models/Students")
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const CollegeModel = require("./models/College");
+const StudentsModel = require("./models/Students");
 
-const app = express()
-app.use(express.json())
-app.use(cors())
+const app = express();
+app.use(express.json());
+app.use(cors());
 
 mongoose.connect("mongodb://127.0.0.1:27017/college");
 
@@ -27,7 +27,6 @@ app.post('/login', (req, res) => {
         .catch(err => res.status(500).json({ success: false, message: "Server error" }));
 });
 
-
 app.post('/register', async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
@@ -45,6 +44,17 @@ app.post('/register', async (req, res) => {
 
         // If validation passes, create a new college entry
         const college = await CollegeModel.create({ name, email, password, role });
+
+        // If the role is "student", also store the data in the Students collection
+        if (role === "Student") {
+            await StudentsModel.create({
+                collegeID: college.collegeID, // Use the generated collegeID
+                name: college.name,
+                email: college.email,
+                contactNumber: null, // Set to null or omit if not required
+            });
+        }
+
         res.json({ success: true, college });
 
     } catch (err) {
@@ -52,16 +62,6 @@ app.post('/register', async (req, res) => {
     }
 });
 
-app.get('/students', async (req, res) => {
-    try {
-        const students = await StudentsModel.find().populate('collegeId'); // Populate college details if needed
-        res.json({ success: true, students });
-    } catch (err) {
-        res.status(500).json({ success: false, message: "Server error" });
-    }
-});
-
-
 app.listen(3001, () => {
-    console.log("Server is running")
-})
+    console.log("Server is running");
+});
