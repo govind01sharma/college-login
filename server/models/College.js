@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+//const bcrypt = require('bcrypt');
 
 const CollegeSchema = new mongoose.Schema({
     name: { type: String, required: true },  
@@ -10,6 +11,11 @@ const CollegeSchema = new mongoose.Schema({
 
 // Pre-save hook to generate collegeID
 CollegeSchema.pre('save', async function (next) {
+
+    // if (this.isModified('password')) {  // Hash only if password is modified
+    //     this.password = await bcrypt.hash(this.password, 10);
+    // }
+
     if (!this.collegeID) {
         let isUnique = false;
         let generatedID;
