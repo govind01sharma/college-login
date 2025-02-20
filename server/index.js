@@ -51,7 +51,7 @@ app.post('/register', async (req, res) => {
                 collegeID: college.collegeID, // Use the generated collegeID
                 name: college.name,
                 email: college.email,
-                contactNumber: null, // Set to null or omit if not required
+                contactNumber: null, 
             });
         }
 

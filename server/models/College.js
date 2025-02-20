@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const CollegeSchema = new mongoose.Schema({
-    name: { type: String, required: true },  // Name is required
-    email: { type: String, unique: true, required: true },  // Email is required
-    password: { type: String, required: true },  // Password is required
-    role: { type: String, required: true },  // Role is required
-    collegeID: { type: String, unique: true },  // New field: collegeID
+    name: { type: String, required: true },  
+    email: { type: String, unique: true, required: true },  
+    password: { type: String, required: true },  
+    role: { type: String, required: true },  
+    collegeID: { type: String, unique: true },  
 });
 
 // Pre-save hook to generate collegeID

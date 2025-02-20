@@ -7,8 +7,8 @@ function Signup() {
     const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const [role, setRole] = useState("Student"); // Default role
-    const [error, setError] = useState(""); // State for error messages
+    const [role, setRole] = useState("Student"); 
+    const [error, setError] = useState(""); 
     const navigate = useNavigate()
 
     const handleSubmit = (e) => {
@@ -16,9 +16,9 @@ function Signup() {
 
         // Basic validation: Check if any field is empty
         if (!name || !email || !password || !role) {
-            setError("One or more fields is missing/empty."); // ✅ Show in UI
-            alert("One or more fields is missing/empty."); // ✅ Show alert
-            return; // Stop form submission
+            setError("One or more fields is missing/empty."); 
+            alert("One or more fields is missing/empty."); 
+            return; 
         }
 
         // Reset error if all fields are filled
@@ -28,9 +28,9 @@ function Signup() {
             .then(result => {
                 console.log(result);
                 if (result.data.success) {
-                    navigate('/login');  // Navigate only if registration is successful
+                    navigate('/login');  
                 } else {
-                    setError(result.data.message); // Display error from server
+                    setError(result.data.message); 
                 }
             })
             .catch(err => {

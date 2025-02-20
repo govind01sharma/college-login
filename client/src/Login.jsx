@@ -16,12 +16,12 @@ function Login() {
                 console.log(result);
                 if (result.data.success) {
                     if (result.data.role === "Student") {
-                        navigate('/updateStudent');  // Navigate to student page
+                        navigate('/updateStudent');  
                     } else if (result.data.role === "Staff") {
-                        navigate('/staff');  // Navigate to staff page
+                        navigate('/staff');  
                     }
                 } else {
-                    alert(result.data.message); // Show error message if login fails
+                    alert(result.data.message); 
                 }
             })
             .catch(err => console.log(err));
