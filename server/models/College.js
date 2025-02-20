@@ -34,7 +34,6 @@ CollegeSchema.pre('save', async function (next) {
     next();
 });
 
-// Helper function to generate alphanumeric ID
 function generateAlphanumericID(length) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';

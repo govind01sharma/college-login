@@ -8,7 +8,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb://127.0.0.1:27017/college");
+// Database Connection with Error Handling
+mongoose.connect("mongodb://127.0.0.1:27017/college")
+    .then(() => console.log("MongoDB connected successfully"))
+    .catch((err) => console.error("MongoDB connection error:", err));
+
 
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
