@@ -31,7 +31,12 @@ app.post('/login', (req, res) => {
 
 app.post('/register', async (req, res) => {
     try {
-        const { email } = req.body;
+        const { name, email, password, role } = req.body;
+
+        // Check for missing or empty values
+        if (!name || !email || !password || !role) {
+            return res.status(400).json({ success: false, message: "All fields are required" });
+        }
 
         // Check if email already exists
         const existingCollege = await CollegeModel.findOne({ email });
@@ -39,8 +44,8 @@ app.post('/register', async (req, res) => {
             return res.json({ success: false, message: "Email already exists" });
         }
 
-        // If email is unique, create a new college entry
-        const college = await CollegeModel.create(req.body);
+        // If validation passes, create a new college entry
+        const college = await CollegeModel.create({ name, email, password, role });
         res.json({ success: true, college });
 
     } catch (err) {

@@ -8,25 +8,37 @@ function Signup() {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [role, setRole] = useState("Student"); // Default role
+    const [error, setError] = useState(""); // State for error messages
     const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
+        // Basic validation: Check if any field is empty
+        if (!name || !email || !password || !role) {
+            setError("One or more fields is missing/empty."); // ✅ Show in UI
+            alert("One or more fields is missing/empty."); // ✅ Show alert
+            return; // Stop form submission
+        }
+
+        // Reset error if all fields are filled
+        setError("");
+
         axios.post('http://localhost:3001/register', { name, email, password, role })
             .then(result => {
                 console.log(result);
                 if (result.data.success) {
                     navigate('/login');  // Navigate only if registration is successful
                 } else {
-                    alert(result.data.message);  // Show alert if email is not unique
+                    setError(result.data.message); // Display error from server
                 }
             })
             .catch(err => {
                 console.error("Error:", err);
-                alert("An error occurred. Please try again.");
+                setError("An error occurred. Please try again.");
             });
     };
+
     
     
     return (
