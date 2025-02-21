@@ -83,14 +83,30 @@ app.get('/students/:collegeID', async (req, res) => {
 app.put('/students/:collegeID', async (req, res) => {
     try {
         const { name, email, contactNumber } = req.body;
+        const collegeID = req.params.collegeID;
+
+        // Update Students collection
         const updatedStudent = await StudentsModel.findOneAndUpdate(
-            { collegeID: req.params.collegeID },
+            { collegeID: collegeID },
             { name, email, contactNumber },
             { new: true }
         );
-        
-        if (!updatedStudent) return res.status(404).json({ success: false, message: "Student not found" });
-        
+
+        if (!updatedStudent) {
+            return res.status(404).json({ success: false, message: "Student not found" });
+        }
+
+        // Update College collection
+        const updatedCollege = await CollegeModel.findOneAndUpdate(
+            { collegeID: collegeID },
+            { name: name, email: email }, // Update name and email in College model
+            { new: true }
+        );
+
+        if (!updatedCollege) {
+            return res.status(404).json({ success: false, message: "College not found" });
+        }
+
         res.json({ success: true, student: updatedStudent });
     } catch (error) {
         console.error(error);
