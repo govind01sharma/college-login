@@ -28,7 +28,6 @@ function StaffView() {
                         <th>Name</th>
                         <th>Email</th>
                         <th>Contact Number</th>
-                        <th>Resume Link</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,13 +36,6 @@ function StaffView() {
                             <td>{student.name || "N/A"}</td>
                             <td>{student.email}</td>
                             <td>{student.contactNumber || "N/A"}</td>
-                            <td>
-                                {student.resume?.fileUrl ? (
-                                    <a href={student.resume.fileUrl} target="_blank" rel="noopener noreferrer">
-                                        View Resume
-                                    </a>
-                                ) : "No Resume"}
-                            </td>
                         </tr>
                     ))}
                 </tbody>
