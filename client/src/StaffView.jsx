@@ -19,6 +19,12 @@ function StaffView() {
             });
     }, []);
 
+    // Function to extract the filename from the file path
+    const getFilenameFromPath = (filePath) => {
+        if (!filePath) return null;
+        return filePath.split("/").pop(); // Extract the last part of the path
+    };
+
     return (
         <div className="container mt-5">
             <h2 className="mb-4">Students List</h2>
@@ -28,6 +34,7 @@ function StaffView() {
                         <th>Name</th>
                         <th>Email</th>
                         <th>Contact Number</th>
+                        <th>Resume</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +43,19 @@ function StaffView() {
                             <td>{student.name || "N/A"}</td>
                             <td>{student.email}</td>
                             <td>{student.contactNumber || "N/A"}</td>
+                            <td>
+                                {student.resume ? (
+                                    <a
+                                        href={`http://localhost:3001/resume/${getFilenameFromPath(student.resume)}`}
+                                        download
+                                        className="btn btn-primary btn-sm"
+                                    >
+                                        Download Resume
+                                    </a>
+                                ) : (
+                                    "No Resume"
+                                )}
+                            </td>
                         </tr>
                     ))}
                 </tbody>

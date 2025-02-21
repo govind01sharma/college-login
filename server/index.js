@@ -1,17 +1,57 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
 const CollegeModel = require("./models/College");
 const StudentsModel = require("./models/Students");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+const fs = require("fs");
+// Set up multer for file uploads
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname)); // Append the file extension
+    }
+});
+
+const upload = multer({ storage: storage });
 
 // Database Connection with Error Handling
 mongoose.connect("mongodb://127.0.0.1:27017/college")
 .then(() => console.log("MongoDB connected successfully"))
 .catch((err) => console.error("MongoDB connection error:", err));
+
+// Serve resume files for download
+app.get('/resume/:filename', (req, res) => {
+    const filePath = path.join(__dirname, 'uploads', req.params.filename);
+    console.log("Requested file path:", filePath); // Debugging
+
+    if (fs.existsSync(filePath)) {
+        res.download(filePath); // Stream the file to the client
+    } else {
+        console.error("File not found:", filePath); // Debugging
+        res.status(404).json({ success: false, message: "File not found" });
+    }
+});
+
+// Get all students
+app.get('/students', async (req, res) => {
+    try {
+        const students = await StudentsModel.find({});
+        res.json({ success: true, students });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+
 
 // Login Endpoint
 app.post('/login', (req, res) => {
@@ -57,6 +97,7 @@ app.post('/register', async (req, res) => {
                 name: college.name,
                 email: college.email,
                 contactNumber: null,
+                resume: null, // Initialize resume field as null
             });
         }
 
@@ -79,16 +120,17 @@ app.get('/students/:collegeID', async (req, res) => {
     }
 });
 
-// Update Student Details
-app.put('/students/:collegeID', async (req, res) => {
+// Update Student Details with Resume Upload
+app.put('/students/:collegeID', upload.single('resume'), async (req, res) => {
     try {
         const { name, email, contactNumber } = req.body;
         const collegeID = req.params.collegeID;
+        const resumePath = req.file ? req.file.path : null;
 
         // Update Students collection
         const updatedStudent = await StudentsModel.findOneAndUpdate(
             { collegeID: collegeID },
-            { name, email, contactNumber },
+            { name, email, contactNumber, resume: resumePath },
             { new: true }
         );
 
@@ -110,7 +152,7 @@ app.put('/students/:collegeID', async (req, res) => {
         res.json({ success: true, student: updatedStudent });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: 'Server error', error: error.message });
     }
 });
 
