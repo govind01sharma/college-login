@@ -127,10 +127,17 @@ app.put('/students/:collegeID', upload.single('resume'), async (req, res) => {
         const collegeID = req.params.collegeID;
         const resumePath = req.file ? req.file.path : null;
 
+        // Prepare the update object
+        const updateFields = { name, email, contactNumber };
+        if (resumePath) {
+            updateFields.resume = resumePath;
+            updateFields.resumeUploadDate = new Date(); // Set the current date and time
+        }
+
         // Update Students collection
         const updatedStudent = await StudentsModel.findOneAndUpdate(
             { collegeID: collegeID },
-            { name, email, contactNumber, resume: resumePath },
+            updateFields,
             { new: true }
         );
 

@@ -25,6 +25,13 @@ function StaffView() {
         return filePath.split("/").pop(); // Extract the last part of the path
     };
 
+    // Function to format the date and time
+    const formatDateTime = (dateString) => {
+        if (!dateString) return "N/A";
+        const date = new Date(dateString);
+        return date.toLocaleString(); // Format as local date and time
+    };
+
     return (
         <div className="container mt-5">
             <h2 className="mb-4">Students List</h2>
@@ -35,6 +42,7 @@ function StaffView() {
                         <th>Email</th>
                         <th>Contact Number</th>
                         <th>Resume</th>
+                        <th>Resume Upload Date and Time</th> {/* New column for resume upload date */}
                     </tr>
                 </thead>
                 <tbody>
@@ -56,6 +64,7 @@ function StaffView() {
                                     "No Resume"
                                 )}
                             </td>
+                            <td>{formatDateTime(student.resumeUploadDate)}</td> {/* Display formatted date and time */}
                         </tr>
                     ))}
                 </tbody>
