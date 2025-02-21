@@ -6,12 +6,8 @@ function StudentInput() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [contactNumber, setContactNumber] = useState("");
-    const [resume, setResume] = useState(null);
     const navigate = useNavigate();
 
-    const handleFileChange = (e) => {
-        setResume(e.target.files[0]);
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +17,6 @@ function StudentInput() {
         formData.append("name", name);
         formData.append("email", email);
         formData.append("contactNumber", contactNumber);
-        formData.append("resume", resume);
 
         try {
             await axios.post("http://localhost:3001/updateStudent", formData, {
@@ -49,10 +44,6 @@ function StudentInput() {
                     <div className="mb-3">
                         <label><strong>Contact Number</strong></label>
                         <input type="text" placeholder="Enter Contact Number" className="form-control rounded-0" onChange={(e) => setContactNumber(e.target.value)} />
-                    </div>
-                    <div className="mb-3">
-                        <label><strong>Upload Resume</strong></label>
-                        <input type="file" className="form-control rounded-0" onChange={handleFileChange} />
                     </div>
                     <button type="submit" className="btn btn-success w-100 rounded-0">Submit</button>
                 </form>
