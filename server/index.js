@@ -14,28 +14,28 @@ mongoose.connect("mongodb://127.0.0.1:27017/college")
     .catch((err) => console.error("MongoDB connection error:", err));
 
 
-    app.post('/login', (req, res) => {
-        const { email, password } = req.body;
-        CollegeModel.findOne({ email: email })
-            .then(user => {
-                if (user) {
-                    if (user.password === password) {
-                        // Include collegeID in the response
-                        res.json({ 
-                            success: true, 
-                            role: user.role, 
-                            collegeID: user.collegeID 
-                        });
-                    } else {
-                        res.json({ success: false, message: "The password is incorrect" });
-                    }
-                } else {
-                    res.json({ success: false, message: "No record existed" });
-                }
-            })
-            .catch(err => res.status(500).json({ success: false, message: "Server error" }));
-    });
-    
+app.post('/login', (req, res) => {
+       const { email, password } = req.body;
+       CollegeModel.findOne({ email: email })
+           .then(user => {
+               if (user) {
+                   if (user.password === password) {
+                       // Include collegeID in the response
+                       res.json({ 
+                           success: true, 
+                           role: user.role, 
+                           collegeID: user.collegeID 
+                       });
+                   } else {
+                       res.json({ success: false, message: "The password is incorrect" });
+                   }
+               } else {
+                   res.json({ success: false, message: "No record existed" });
+               }
+           })
+           .catch(err => res.status(500).json({ success: false, message: "Server error" }));
+   });
+   
 
 app.post('/register', async (req, res) => {
     try {
