@@ -16,7 +16,8 @@ function Login() {
                 console.log(result);
                 if (result.data.success) {
                     if (result.data.role === "Student") {
-                        navigate('/updateStudent');  
+                        const collegeID = result.data.collegeID; // Extract collegeID
+                        navigate(`/updateStudent/${collegeID}`); // Navigate with collegeID
                     } else if (result.data.role === "Staff") {
                         navigate('/staff');  
                     }
