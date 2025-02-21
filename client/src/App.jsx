@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path='/register' element={<Signup />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/updateStudent/:id' element={<StudentInput />} /> {/* Updated route */}
+        <Route path='/updateStudent/:collegeID' element={<StudentInput />} /> {/* Updated route parameter */}
         <Route path='/staff' element={<StaffView />} />
       </Routes>
     </BrowserRouter>

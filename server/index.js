@@ -10,58 +10,53 @@ app.use(cors());
 
 // Database Connection with Error Handling
 mongoose.connect("mongodb://127.0.0.1:27017/college")
-    .then(() => console.log("MongoDB connected successfully"))
-    .catch((err) => console.error("MongoDB connection error:", err));
+.then(() => console.log("MongoDB connected successfully"))
+.catch((err) => console.error("MongoDB connection error:", err));
 
-
+// Login Endpoint
 app.post('/login', (req, res) => {
-       const { email, password } = req.body;
-       CollegeModel.findOne({ email: email })
-           .then(user => {
-               if (user) {
-                   if (user.password === password) {
-                       // Include collegeID in the response
-                       res.json({ 
-                           success: true, 
-                           role: user.role, 
-                           collegeID: user.collegeID 
-                       });
-                   } else {
-                       res.json({ success: false, message: "The password is incorrect" });
-                   }
-               } else {
-                   res.json({ success: false, message: "No record existed" });
-               }
-           })
-           .catch(err => res.status(500).json({ success: false, message: "Server error" }));
-   });
-   
+    const { email, password } = req.body;
+    CollegeModel.findOne({ email: email })
+    .then(user => {
+        if (user) {
+            if (user.password === password) {
+                res.json({
+                    success: true,
+                    role: user.role,
+                    collegeID: user.collegeID
+                });
+            } else {
+                res.json({ success: false, message: "The password is incorrect" });
+            }
+        } else {
+            res.json({ success: false, message: "No record existed" });
+        }
+    })
+    .catch(err => res.status(500).json({ success: false, message: "Server error" }));
+});
 
+// Register Endpoint
 app.post('/register', async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
 
-        // Check for missing or empty values
         if (!name || !email || !password || !role) {
             return res.status(400).json({ success: false, message: "All fields are required" });
         }
 
-        // Check if email already exists
         const existingCollege = await CollegeModel.findOne({ email });
         if (existingCollege) {
             return res.json({ success: false, message: "Email already exists" });
         }
 
-        // If validation passes, create a new college entry
         const college = await CollegeModel.create({ name, email, password, role });
 
-        // If the role is "student", also store the data in the Students collection
         if (role === "Student") {
             await StudentsModel.create({
-                collegeID: college.collegeID, // Use the generated collegeID
+                collegeID: college.collegeID,
                 name: college.name,
                 email: college.email,
-                contactNumber: null, 
+                contactNumber: null,
             });
         }
 
@@ -72,11 +67,31 @@ app.post('/register', async (req, res) => {
     }
 });
 
-// API endpoint to fetch students
-app.get('/students', async (req, res) => {
+// Get Student Details by College ID
+app.get('/students/:collegeID', async (req, res) => {
     try {
-        const students = await StudentsModel.find();
-        res.json({ success: true, students });
+        const student = await StudentsModel.findOne({ collegeID: req.params.collegeID });
+        if (!student) return res.status(404).json({ success: false, message: "Student not found" });
+        res.json({ success: true, student });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// Update Student Details
+app.put('/students/:collegeID', async (req, res) => {
+    try {
+        const { name, email, contactNumber } = req.body;
+        const updatedStudent = await StudentsModel.findOneAndUpdate(
+            { collegeID: req.params.collegeID },
+            { name, email, contactNumber },
+            { new: true }
+        );
+        
+        if (!updatedStudent) return res.status(404).json({ success: false, message: "Student not found" });
+        
+        res.json({ success: true, student: updatedStudent });
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: 'Server error' });
