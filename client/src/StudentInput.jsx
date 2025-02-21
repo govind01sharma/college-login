@@ -19,7 +19,7 @@ function StudentInput() {
         formData.append("contactNumber", contactNumber);
 
         try {
-            await axios.post("http://localhost:3001/updateStudent", formData, {
+            await axios.post("http://localhost:3001/students", formData, {
                 headers: { "Content-Type": "multipart/form-data" }
             });
             navigate("/dashboard");
