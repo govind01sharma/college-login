@@ -7,7 +7,8 @@ const CollegeModel = require("./models/College");
 const StudentsModel = require("./models/Students");
 
 const studentsRoutes = require("./routes/students");
-const authRoutes = require("./routes/auth"); 
+const authRoutes = require("./routes/auth");
+const getStudentByCollegeIDRoutes = require("./routes/getStudentByCollegeID");
 
 const app = express();
 app.use(express.json());
@@ -45,18 +46,7 @@ app.get('/resume/:filename', (req, res) => {
 
 app.use("/students", studentsRoutes);
 app.use("/auth", authRoutes); 
-
-// Get Student Details by College ID
-app.get('/students/:collegeID', async (req, res) => {
-    try {
-        const student = await StudentsModel.findOne({ collegeID: req.params.collegeID });
-        if (!student) return res.status(404).json({ success: false, message: "Student not found" });
-        res.json({ success: true, student });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: 'Server error' });
-    }
-});
+app.use("/getStudentByCollegeID", getStudentByCollegeIDRoutes);
 
 // Update Student Details with Resume Upload
 app.put('/students/:collegeID', upload.single('resume'), async (req, res) => {

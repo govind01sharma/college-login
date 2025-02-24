@@ -15,7 +15,7 @@ function StudentInput() {
     useEffect(() => {
         const fetchStudentDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/students/${collegeID}`);
+                const response = await axios.get(`http://localhost:3001/getStudentByCollegeID/${collegeID}`);
                 if (response.data.success) {
                     setName(response.data.student.name);
                     setEmail(response.data.student.email);
