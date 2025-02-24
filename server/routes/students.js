@@ -1,17 +1,8 @@
 const express = require("express");
-const StudentsModel = require("../models/Students");
+const { getAllStudents } = require("../controllers/studentsController");
 
 const router = express.Router();
 
-// Get all students
-router.get("/", async (req, res) => {
-    try {
-        const students = await StudentsModel.find({});
-        res.json({ success: true, students });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Server error" });
-    }
-});
+router.get("/", getAllStudents);
 
 module.exports = router;
