@@ -6,6 +6,8 @@ const path = require("path");
 const CollegeModel = require("./models/College");
 const StudentsModel = require("./models/Students");
 
+const studentsRoutes = require("./routes/students"); // Import students routes
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -40,16 +42,8 @@ app.get('/resume/:filename', (req, res) => {
     }
 });
 
-// Get all students
-app.get('/students', async (req, res) => {
-    try {
-        const students = await StudentsModel.find({});
-        res.json({ success: true, students });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: 'Server error' });
-    }
-});
+// Use Students Routes
+app.use("/students", studentsRoutes);
 
 
 
