@@ -55,9 +55,9 @@ function StaffView() {
                                     <td>
                                         {student.resume ? (
                                             <a href={`http://localhost:3001/resume/${getFilenameFromPath(student.resume)}`} 
-                                               download className="btn btn-primary btn-sm resume-button">
-                                                Download Resume
-                                            </a>
+                                            download className="btn btn-primary btn-sm resume-button">
+                                             Download Resume
+                                         </a>
                                         ) : "No Resume"}
                                     </td>
                                     <td>{formatDateTime(student.resumeUploadDate)}</td>
