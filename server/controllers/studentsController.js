@@ -1,6 +1,5 @@
 const StudentsModel = require("../models/Students");
 
-// Controller to get all students
 const getAllStudents = async (req, res) => {
     try {
         const students = await StudentsModel.find({});

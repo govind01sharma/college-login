@@ -3,7 +3,6 @@ const { getStudentByCollegeID } = require("../controllers/getStudentByCollegeIDC
 
 const router = express.Router();
 
-// Route using the controller function
 router.get("/:collegeID", getStudentByCollegeID);
 
 module.exports = router;

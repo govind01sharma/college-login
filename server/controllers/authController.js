@@ -1,7 +1,6 @@
 const CollegeModel = require("../models/College");
 const StudentsModel = require("../models/Students");
 
-// Login Controller
 const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -26,7 +25,6 @@ const loginUser = async (req, res) => {
     }
 };
 
-// Register Controller
 const registerUser = async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
@@ -48,7 +46,7 @@ const registerUser = async (req, res) => {
                 name: college.name,
                 email: college.email,
                 contactNumber: null,
-                resume: null, // Initialize resume field as null
+                resume: null,
             });
         }
 

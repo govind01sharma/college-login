@@ -5,8 +5,8 @@ const StudentsSchema = new mongoose.Schema({
     name: String,
     email: { type: String, required: true },
     contactNumber: String,
-    resume: String, // New field to store the resume file path or URL
-    resumeUploadDate: Date, // New field to store the date and time of resume upload
+    resume: String, 
+    resumeUploadDate: Date, 
 });
 
 const StudentsModel = mongoose.model("students", StudentsSchema);

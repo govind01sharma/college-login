@@ -1,6 +1,5 @@
 const StudentsModel = require("../models/Students");
 
-// Get Student Details by College ID
 const getStudentByCollegeID = async (req, res) => {
     try {
         const student = await StudentsModel.findOne({ collegeID: req.params.collegeID });

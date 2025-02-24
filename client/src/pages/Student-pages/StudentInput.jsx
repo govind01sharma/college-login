@@ -11,7 +11,6 @@ function StudentInput() {
     const navigate = useNavigate();
     const { collegeID } = useParams();
 
-    // Fetch existing student details
     useEffect(() => {
         const fetchStudentDetails = async () => {
             try {

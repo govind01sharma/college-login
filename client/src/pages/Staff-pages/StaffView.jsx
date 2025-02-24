@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "../../styles/StaffView.css";  // Import CSS
+import "../../styles/StaffView.css";
 
 function StaffView() {
     const [students, setStudents] = useState([]);

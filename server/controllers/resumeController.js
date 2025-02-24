@@ -1,7 +1,6 @@
 const path = require("path");
 const fs = require("fs");
 
-// Serve resume files for download
 const downloadResume = (req, res) => {
     const filePath = path.join(__dirname, "../uploads", req.params.filename);
 

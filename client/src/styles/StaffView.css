@@ -13,18 +13,18 @@
     padding: 1.5rem;
     border-radius: 8px;
     width: 90%;
-    overflow-x: auto; /* Ensure responsiveness */
+    overflow-x: auto; 
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Header styling */
 .staff-view-box h2 {
     margin-bottom: 1rem;
-    margin-top: 0.9rem; /* Add space above the heading */
+    margin-top: 0.9rem; 
     text-align: center;
     font-weight: bold;
-    font-size: 1.5rem; /* Ensure it's large enough */
-    padding: 10px 0; /* Add vertical padding for better spacing */
+    font-size: 1.5rem; 
+    padding: 10px 0; 
 }
 
 
@@ -32,12 +32,12 @@
 .staff-table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed; /* Fixed layout for an Excel-like structure */
+    table-layout: fixed; 
 }
 
 /* Table header styling */
 .staff-table thead {
-    background-color: #d9ead3; /* Light green like Excel */
+    background-color: #d9ead3; 
     font-weight: bold;
     text-transform: uppercase;
     border-bottom: 2px solid #000;
@@ -45,7 +45,7 @@
 
 .staff-table th {
     padding: 12px;
-    border: 1px solid #a6a6a6; /* Light gray gridlines */
+    border: 1px solid #a6a6a6;
     text-align: center;
 }
 
@@ -63,7 +63,7 @@
 /* Table cells */
 .staff-table td {
     padding: 10px;
-    border: 1px solid #a6a6a6; /* Excel-like gridlines */
+    border: 1px solid #a6a6a6;
     text-align: center;
     font-size: 14px;
     white-space: nowrap;
@@ -73,7 +73,7 @@
 
 /* Row hover effect */
 .staff-table tbody tr:hover {
-    background-color: #cfe2f3; /* Light blue Excel-like selection */
+    background-color: #cfe2f3;
 }
 
 /* Resume button */
