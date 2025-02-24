@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import "../../styles/Login.css";
 
 function Login() {
@@ -15,17 +16,18 @@ function Login() {
             const result = await axios.post('http://localhost:3001/auth/login', { email, password });
             
             if (result.data.success) {
+                toast.success("Login successful!");
                 if (result.data.role === "Student") {
                     navigate(`/updateStudent/${result.data.collegeID}`);
                 } else if (result.data.role === "Staff") {
                     navigate('/staff');
                 }
             } else {
-                alert(result.data.message);
+                toast.error(result.data.message);
             }
         } catch (err) {
             console.log(err);
-            alert("An error occurred during login.");
+            toast.error("An error occurred during login.");
         }
     };
 

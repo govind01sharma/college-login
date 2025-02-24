@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "../../styles/StaffView.css";
+import { toast } from "react-toastify";
 
 function StaffView() {
     const [students, setStudents] = useState([]);
@@ -11,12 +12,12 @@ function StaffView() {
                 if (response.data.success) {
                     setStudents(response.data.students);
                 } else {
-                    alert("Failed to fetch students");
+                    toast.error("Failed to fetch students");
                 }
             })
             .catch(error => {
                 console.error("Error fetching students:", error);
-                alert("An error occurred while fetching students.");
+                toast.error("An error occurred while fetching students.");
             });
     }, []);
 

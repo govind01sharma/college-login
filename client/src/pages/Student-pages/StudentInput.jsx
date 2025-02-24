@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import "../../styles/StudentInput.css"
+import "../../styles/StudentInput.css";
+import { toast } from "react-toastify";
 
 function StudentInput() {
     const [name, setName] = useState("");
@@ -22,6 +23,7 @@ function StudentInput() {
                 }
             } catch (error) {
                 console.error("Error fetching student details", error);
+                toast.error("Error fetching student details");
             }
         };
 
@@ -45,10 +47,11 @@ function StudentInput() {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            alert("Details Updated Successfully");
+            toast.success("Details Updated Successfully");
             navigate("/login");
         } catch (error) {
             console.error("Error updating details", error);
+            toast.error("Error updating details")
         }
     };
 

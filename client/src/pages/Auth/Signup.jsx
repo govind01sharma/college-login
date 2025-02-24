@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import "../../styles/Signup.css";
+import { toast } from "react-toastify";
 
 function Signup() {
     const [name, setName] = useState("");
@@ -17,7 +18,7 @@ function Signup() {
 
         if (!name || !email || !password || !role) {
             setError("One or more fields is missing/empty.");
-            alert("One or more fields is missing/empty.");
+            toast.error("One or more fields is missing/empty.");
             return;
         }
 
@@ -26,14 +27,17 @@ function Signup() {
         axios.post('http://localhost:3001/auth/register', { name, email, password, role })
             .then(result => {
                 if (result.data.success) {
+                    toast.success("Registration successful!")
                     navigate('/login');
                 } else {
                     setError(result.data.message);
+                    toast.error(result.data.message);
                 }
             })
             .catch(err => {
                 console.error("Error:", err);
                 setError("An error occurred. Please try again.");
+                toast.error("An error occurred. Please try again.");
             });
     };
 
