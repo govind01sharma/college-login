@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Signup from './Signup';
-import Login from './Login';
-import StudentInput from './StudentInput';
-import StaffView from './StaffView';
+import Signup from './pages/Auth/Signup';
+import Login from './pages/Auth/Login';
+import StudentInput from './pages/Student-pages/StudentInput';
+import StaffView from './pages/Staff-pages/StaffView';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 function App() {
