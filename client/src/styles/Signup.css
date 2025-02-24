@@ -25,6 +25,7 @@
 .signup-box button {
     border-radius: 0;
     width: 100%;
+    background-color: #4CAF50;
 }
 
 .signup-box .login-btn {
