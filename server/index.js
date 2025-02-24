@@ -6,7 +6,8 @@ const path = require("path");
 const CollegeModel = require("./models/College");
 const StudentsModel = require("./models/Students");
 
-const studentsRoutes = require("./routes/students"); // Import students routes
+const studentsRoutes = require("./routes/students");
+const authRoutes = require("./routes/auth"); 
 
 const app = express();
 app.use(express.json());
@@ -24,7 +25,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Database Connection with Error Handling
 mongoose.connect("mongodb://127.0.0.1:27017/college")
 .then(() => console.log("MongoDB connected successfully"))
 .catch((err) => console.error("MongoDB connection error:", err));
@@ -42,65 +42,9 @@ app.get('/resume/:filename', (req, res) => {
     }
 });
 
-// Use Students Routes
+
 app.use("/students", studentsRoutes);
-
-
-
-// Login Endpoint
-app.post('/login', (req, res) => {
-    const { email, password } = req.body;
-    CollegeModel.findOne({ email: email })
-    .then(user => {
-        if (user) {
-            if (user.password === password) {
-                res.json({
-                    success: true,
-                    role: user.role,
-                    collegeID: user.collegeID
-                });
-            } else {
-                res.json({ success: false, message: "The password is incorrect" });
-            }
-        } else {
-            res.json({ success: false, message: "No record existed" });
-        }
-    })
-    .catch(err => res.status(500).json({ success: false, message: "Server error" }));
-});
-
-// Register Endpoint
-app.post('/register', async (req, res) => {
-    try {
-        const { name, email, password, role } = req.body;
-
-        if (!name || !email || !password || !role) {
-            return res.status(400).json({ success: false, message: "All fields are required" });
-        }
-
-        const existingCollege = await CollegeModel.findOne({ email });
-        if (existingCollege) {
-            return res.json({ success: false, message: "Email already exists" });
-        }
-
-        const college = await CollegeModel.create({ name, email, password, role });
-
-        if (role === "Student") {
-            await StudentsModel.create({
-                collegeID: college.collegeID,
-                name: college.name,
-                email: college.email,
-                contactNumber: null,
-                resume: null, // Initialize resume field as null
-            });
-        }
-
-        res.json({ success: true, college });
-
-    } catch (err) {
-        res.status(500).json({ success: false, message: "Server error" });
-    }
-});
+app.use("/auth", authRoutes); 
 
 // Get Student Details by College ID
 app.get('/students/:collegeID', async (req, res) => {

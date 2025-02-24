@@ -23,7 +23,7 @@ function Signup() {
 
         setError("");
 
-        axios.post('http://localhost:3001/register', { name, email, password, role })
+        axios.post('http://localhost:3001/auth/register', { name, email, password, role })
             .then(result => {
                 if (result.data.success) {
                     navigate('/login');

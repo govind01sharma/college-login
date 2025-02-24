@@ -12,7 +12,7 @@ function Login() {
         e.preventDefault();
         
         try {
-            const result = await axios.post('http://localhost:3001/login', { email, password });
+            const result = await axios.post('http://localhost:3001/auth/login', { email, password });
             
             if (result.data.success) {
                 if (result.data.role === "Student") {
