@@ -19,56 +19,57 @@ function StaffView() {
             });
     }, []);
 
-    // Function to extract the filename from the file path
     const getFilenameFromPath = (filePath) => {
-        if (!filePath) return null;
-        return filePath.split("/").pop(); // Extract the last part of the path
+        if (!filePath) return "N/A";
+        return filePath.split("/").pop();
     };
 
-    // Function to format the date and time
     const formatDateTime = (dateString) => {
         if (!dateString) return "N/A";
         const date = new Date(dateString);
-        return date.toLocaleString(); // Format as local date and time
+        return date.toLocaleString();
     };
 
     return (
-        <div className="container mt-5">
-            <h2 className="mb-4">Students List</h2>
-            <table className="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Contact Number</th>
-                        <th>Resume</th>
-                        <th>Resume Upload Date and Time</th> {/* New column for resume upload date */}
-                    </tr>
-                </thead>
-                <tbody>
-                    {students.map(student => (
-                        <tr key={student._id}>
-                            <td>{student.name || "N/A"}</td>
-                            <td>{student.email}</td>
-                            <td>{student.contactNumber || "N/A"}</td>
-                            <td>
-                                {student.resume ? (
-                                    <a
-                                        href={`http://localhost:3001/resume/${getFilenameFromPath(student.resume)}`}
-                                        download
-                                        className="btn btn-primary btn-sm"
-                                    >
-                                        Download Resume
-                                    </a>
-                                ) : (
-                                    "No Resume"
-                                )}
-                            </td>
-                            <td>{formatDateTime(student.resumeUploadDate)}</td> {/* Display formatted date and time */}
+        <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
+            <div className="bg-white p-3 rounded w-75">
+                <h2 className="mb-4 text-center">Students List</h2>
+                <table className="table table-bordered table-striped">
+                    <thead className="thead-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Contact Number</th>
+                            <th>Resume</th>
+                            <th>Resume Upload Date</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {students.length > 0 ? (
+                            students.map(student => (
+                                <tr key={student._id}>
+                                    <td>{student.name || "N/A"}</td>
+                                    <td>{student.email}</td>
+                                    <td>{student.contactNumber || "N/A"}</td>
+                                    <td>
+                                        {student.resume ? (
+                                            <a href={`http://localhost:3001/resume/${getFilenameFromPath(student.resume)}`} 
+                                               download className="btn btn-primary btn-sm">
+                                                Download Resume
+                                            </a>
+                                        ) : "No Resume"}
+                                    </td>
+                                    <td>{formatDateTime(student.resumeUploadDate)}</td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="5" className="text-center">No students found</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }
