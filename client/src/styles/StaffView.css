@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #6c757d; /* Bootstrap secondary color */
+    /* background-color: #6c757d; */
     height: 100vh;
 }
 
@@ -12,42 +12,81 @@
     background-color: white;
     padding: 1.5rem;
     border-radius: 8px;
-    width: 75%;
+    width: 90%;
+    overflow-x: auto; /* Ensure responsiveness */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Header styling */
 .staff-view-box h2 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    margin-top: 0.9rem; /* Add space above the heading */
     text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem; /* Ensure it's large enough */
+    padding: 10px 0; /* Add vertical padding for better spacing */
 }
+
 
 /* Table styling */
 .staff-table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed; /* Fixed layout for an Excel-like structure */
 }
 
-/* Table header */
+/* Table header styling */
 .staff-table thead {
-    background-color: #343a40;
-    color: white;
+    background-color: #d9ead3; /* Light green like Excel */
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 2px solid #000;
 }
 
-/* Table row styling */
+.staff-table th {
+    padding: 12px;
+    border: 1px solid #a6a6a6; /* Light gray gridlines */
+    text-align: center;
+}
+
+/* Table rows styling */
+.staff-table tbody tr {
+    background-color: #ffffff;
+    transition: background 0.2s ease-in-out;
+}
+
+/* Alternating row colors like Excel */
 .staff-table tbody tr:nth-child(even) {
-    background-color: #f8f9fa;
+    background-color: #f3f3f3;
 }
 
-/* Table cell padding */
-.staff-table th,
+/* Table cells */
 .staff-table td {
     padding: 10px;
-    border: 1px solid #dee2e6;
+    border: 1px solid #a6a6a6; /* Excel-like gridlines */
     text-align: center;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Row hover effect */
+.staff-table tbody tr:hover {
+    background-color: #cfe2f3; /* Light blue Excel-like selection */
 }
 
 /* Resume button */
 .resume-button {
     font-size: 0.875rem;
     padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.resume-button:hover {
+    background-color: #45a049;
 }
