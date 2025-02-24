@@ -41,7 +41,7 @@ function StudentInput() {
         }
 
         try {
-            await axios.put(`http://localhost:3001/students/${collegeID}`, formData, {
+            await axios.put(`http://localhost:3001/updateStudent/${collegeID}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
