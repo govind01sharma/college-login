@@ -1,0 +1,46 @@
+/* Center the login container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #6c757d; /* Bootstrap secondary color */
+    height: 100vh;
+}
+
+/* Styling for the login form box */
+.login-box {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 25%;
+}
+
+/* Form labels */
+.login-box label {
+    font-weight: bold;
+}
+
+/* Form inputs */
+.login-box input {
+    border-radius: 0;
+}
+
+/* Login button */
+.login-button {
+    width: 100%;
+    border-radius: 0;
+}
+
+/* Sign-up button */
+.signup-button {
+    width: 100%;
+    border-radius: 0;
+    border: 1px solid #ced4da;
+    background-color: #f8f9fa;
+}
+
+/* Sign-up text */
+.login-box p {
+    margin-top: 1rem;
+    text-align: center;
+}

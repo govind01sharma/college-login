@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import "../../styles/StudentInput.css"
 
 function StudentInput() {
     const [name, setName] = useState("");
@@ -53,27 +54,27 @@ function StudentInput() {
     };
 
     return (
-        <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
-            <div className="bg-white p-3 rounded w-25">
+        <div className="student-input-container">
+            <div className="student-input-box">
                 <h2>Update Student Details</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label><strong>Name</strong></label>
-                        <input type="text" value={name} placeholder="Enter Name" className="form-control rounded-0" onChange={(e) => setName(e.target.value)} />
+                        <input type="text" value={name} placeholder="Enter Name" className="form-control" onChange={(e) => setName(e.target.value)} />
                     </div>
                     <div className="mb-3">
                         <label><strong>Email</strong></label>
-                        <input type="email" value={email} placeholder="Enter Email" className="form-control rounded-0" onChange={(e) => setEmail(e.target.value)} />
+                        <input type="email" value={email} placeholder="Enter Email" className="form-control" onChange={(e) => setEmail(e.target.value)} />
                     </div>
                     <div className="mb-3">
                         <label><strong>Contact Number</strong></label>
-                        <input type="text" value={contactNumber} placeholder="Enter Contact Number" className="form-control rounded-0" onChange={(e) => setContactNumber(e.target.value)} />
+                        <input type="text" value={contactNumber} placeholder="Enter Contact Number" className="form-control" onChange={(e) => setContactNumber(e.target.value)} />
                     </div>
                     <div className="mb-3">
                         <label><strong>Resume (PDF only)</strong></label>
-                        <input type="file" accept="application/pdf" className="form-control rounded-0" onChange={(e) => setResume(e.target.files[0])} />
+                        <input type="file" accept="application/pdf" className="form-control" onChange={(e) => setResume(e.target.files[0])} />
                     </div>
-                    <button type="submit" className="btn btn-success w-100 rounded-0">Submit</button>
+                    <button type="submit" className="btn btn-success submit-button">Submit</button>
                 </form>
             </div>
         </div>

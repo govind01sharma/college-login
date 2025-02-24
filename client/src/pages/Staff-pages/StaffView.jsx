@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "../../styles/StaffView.css";  // Import CSS
 
 function StaffView() {
     const [students, setStudents] = useState([]);
@@ -31,11 +32,11 @@ function StaffView() {
     };
 
     return (
-        <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
-            <div className="bg-white p-3 rounded w-75">
-                <h2 className="mb-4 text-center">Students List</h2>
-                <table className="table table-bordered table-striped">
-                    <thead className="thead-dark">
+        <div className="staff-view-container">
+            <div className="staff-view-box">
+                <h2>Students List</h2>
+                <table className="staff-table">
+                    <thead>
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
@@ -54,7 +55,7 @@ function StaffView() {
                                     <td>
                                         {student.resume ? (
                                             <a href={`http://localhost:3001/resume/${getFilenameFromPath(student.resume)}`} 
-                                               download className="btn btn-primary btn-sm">
+                                               download className="btn btn-primary btn-sm resume-button">
                                                 Download Resume
                                             </a>
                                         ) : "No Resume"}

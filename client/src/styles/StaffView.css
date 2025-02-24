@@ -1,0 +1,53 @@
+/* Center the staff view container */
+.staff-view-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #6c757d; /* Bootstrap secondary color */
+    height: 100vh;
+}
+
+/* Styling for the staff view box */
+.staff-view-box {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 75%;
+}
+
+/* Header styling */
+.staff-view-box h2 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Table styling */
+.staff-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Table header */
+.staff-table thead {
+    background-color: #343a40;
+    color: white;
+}
+
+/* Table row styling */
+.staff-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* Table cell padding */
+.staff-table th,
+.staff-table td {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    text-align: center;
+}
+
+/* Resume button */
+.resume-button {
+    font-size: 0.875rem;
+    padding: 5px 10px;
+}
