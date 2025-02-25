@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const CollegeSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -21,7 +22,19 @@ CollegeSchema.pre('save', async function (next) {
             this.collegeID = generateAlphanumericID(6);
         } while (await mongoose.model('college').exists({ collegeID: this.collegeID }));
     }
+
+    // Hash password if it's new
+    if (this.isNew || this.isModified('password')) {
+        const saltRounds = 10;
+        const salt = await bcrypt.genSalt(saltRounds);
+        this.password = await bcrypt.hash(this.password, salt);
+    }
     next();
 });
+
+// Method to validate password
+CollegeSchema.methods.validatePassword = async function (candidatePassword) {
+    return await bcrypt.compare(candidatePassword, this.password);
+};
 
 module.exports = mongoose.model("college", CollegeSchema);
