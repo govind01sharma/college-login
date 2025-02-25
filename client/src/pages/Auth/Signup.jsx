@@ -12,19 +12,16 @@ function Signup() {
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("Student");
     const [showPassword, setShowPassword] = useState(false);
-    const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if (!name || !email || !password || !role) {
-            setError("One or more fields is missing/empty.");
             toast.error("One or more fields is missing/empty.");
             return;
         }
 
-        setError("");
 
         axios.post('http://localhost:3001/auth/register', { name, email, password, role })
             .then(result => {
@@ -32,13 +29,11 @@ function Signup() {
                     toast.success("Registration successful!")
                     navigate('/login');
                 } else {
-                    setError(result.data.message);
                     toast.error(result.data.message);
                 }
             })
             .catch(err => {
                 console.error("Error:", err);
-                setError("An error occurred. Please try again.");
                 toast.error("An error occurred. Please try again.");
             });
     };
