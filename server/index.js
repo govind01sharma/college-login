@@ -9,7 +9,7 @@ const updateStudentRoutes = require("./routes/updateStudent");
 const resumeRoutes = require("./routes/resume");
 
 const app = express();
-
+require("dotenv").config();
 connectDB();
 
 app.use(express.json());
