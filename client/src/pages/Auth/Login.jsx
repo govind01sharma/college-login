@@ -3,10 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import "../../styles/Login.css";
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons from react-icons
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -47,15 +49,23 @@ function Login() {
                             onChange={(e) => setEmail(e.target.value)} 
                         />
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-3 password-input-container">
                         <label htmlFor="password">Password</label>
-                        <input 
-                            type="password" 
-                            placeholder="Enter Password" 
-                            name="password" 
-                            className="form-control" 
-                            onChange={(e) => setPassword(e.target.value)} 
-                        />
+                        <div className="password-input-wrapper">
+                            <input 
+                                type={showPassword ? "text" : "password"} 
+                                placeholder="Enter Password" 
+                                name="password" 
+                                className="form-control" 
+                                onChange={(e) => setPassword(e.target.value)} 
+                            />
+                            <span 
+                                className="password-toggle-icon" 
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span>
+                        </div>
                     </div>
                     <button type="submit" className="btn btn-success login-button">Login</button>
                 </form>

@@ -4,13 +4,15 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import "../../styles/Signup.css";
 import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons
 
 function Signup() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [role, setRole] = useState("Student"); 
-    const [error, setError] = useState(""); 
+    const [role, setRole] = useState("Student");
+    const [showPassword, setShowPassword] = useState(false); // State for password visibility
+    const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -54,9 +56,23 @@ function Signup() {
                         <label htmlFor="email"><strong>Email</strong></label>
                         <input type="text" placeholder="Enter Email" autoComplete="off" name="email" className="form-control" onChange={(e) => setEmail(e.target.value)} />
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-3 password-input-container">
                         <label htmlFor="password"><strong>Password</strong></label>
-                        <input type="password" placeholder="Enter Password" name="password" className="form-control" onChange={(e) => setPassword(e.target.value)} />
+                        <div className="password-input-wrapper">
+                            <input 
+                                type={showPassword ? "text" : "password"} 
+                                placeholder="Enter Password" 
+                                name="password" 
+                                className="form-control" 
+                                onChange={(e) => setPassword(e.target.value)} 
+                            />
+                            <span 
+                                className="password-toggle-icon" 
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span>
+                        </div>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="role"><strong>Role</strong></label>

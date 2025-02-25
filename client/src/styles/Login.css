@@ -25,6 +25,31 @@
     border-radius: 0;
 }
 
+/* Password input wrapper */
+.password-input-wrapper {
+    position: relative;
+}
+
+/* Add padding to the password input to make space for the eye icon */
+.password-input-wrapper input {
+    padding-right: 40px; /* Space for the eye icon */
+    width: 100%;
+}
+
+/* Eye icon styling */
+.password-toggle-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    background: transparent;
+    border: none;
+    outline: none;
+    z-index: 2; /* Ensure the icon is above the input */
+}
+
 /* Login button */
 .login-button {
     width: 100%;
