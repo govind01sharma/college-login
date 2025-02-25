@@ -3,12 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import "../../styles/Login.css";
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons from react-icons
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {

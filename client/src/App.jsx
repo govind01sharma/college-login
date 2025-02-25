@@ -11,7 +11,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 function App() {
   return (
     <BrowserRouter>
-      {/* ToastContainer should be placed at the top level to work globally */}
       <ToastContainer position="top-right" autoClose={3000} />
       
       <Routes>

@@ -32,7 +32,7 @@
 
 /* Add padding to the password input to make space for the eye icon */
 .password-input-wrapper input {
-    padding-right: 40px; /* Space for the eye icon */
+    padding-right: 40px; 
     width: 100%;
 }
 
@@ -47,7 +47,7 @@
     background: transparent;
     border: none;
     outline: none;
-    z-index: 2; /* Ensure the icon is above the input */
+    z-index: 2; 
 }
 
 /* Login button */
